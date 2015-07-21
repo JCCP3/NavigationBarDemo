@@ -1,0 +1,399 @@
+//
+//  BaseViewController.m
+//  NavigationBarDemo
+//
+//  Created by JC_CP3 on 15/7/20.
+//  Copyright (c) 2015年 JC_CP3. All rights reserved.
+//
+
+#import "BaseViewController.h"
+#import "UIButton+UIButtonImageWithLabel.h"
+#import "Utility.h"
+#define BUTTON_WIDTH 60.f
+#define SEGMENT_WIDTH 50.f
+#define SEGMENT_HEIGHT 30.f
+
+@interface BaseViewController (){
+    
+    UIView *headerView;
+    
+    UIButton *navLeftBarBtn;
+    
+    UIImageView *navLeftBarImageView;
+    
+    UILabel *navTitleLabel;
+    
+    UIButton *navRightBarBtn;
+    
+    UIImageView *navRightBarImageView;
+    
+    UIButton *navSecRightBarBtn;
+    
+    UIImageView *navSecRightBarImageView;
+    
+    UISegmentedControl *segmentedControl;
+    
+    NSString *navTitleString;
+    
+    NSArray *currentSegmentArray;
+    
+    BOOL isLeftAlive;
+    
+    BOOL isLeftImageAndTitleAlive;
+    
+    BOOL isRightAlive;
+    
+    BOOL isRightTwoBtnAlive;
+    
+    UIColor *navigationBarBackgroundColor;
+    
+    UIColor *navigationBarTextColor;
+    
+    UIColor *navigationBarSeparatorColor;
+    
+    CGFloat currentWidth;
+    
+    CGFloat currentHeight;
+}
+
+@end
+
+@implementation BaseViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_AVALIABLE_WIDTH, 64.f)];
+    navLeftBarBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    
+    navTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    navTitleLabel.textAlignment = NSTextAlignmentCenter;
+    navRightBarBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    navSecRightBarBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+    
+    segmentedControl = [[UISegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 0, 30)];
+    segmentedControl.selectedSegmentIndex = 0; //默认选中第一个
+    
+    [navLeftBarBtn addTarget:self action:@selector(onClickLeftBtn) forControlEvents:UIControlEventTouchUpInside];
+    [navRightBarBtn addTarget:self action:@selector(onClickRightBtn) forControlEvents:UIControlEventTouchUpInside];
+    [navSecRightBarBtn addTarget:self action:@selector(onClickSecRightBtn) forControlEvents:UIControlEventTouchUpInside];
+    
+    [headerView addSubview:navLeftBarBtn];
+    [headerView addSubview:navTitleLabel];
+    [headerView addSubview:navRightBarBtn];
+    [headerView addSubview:navSecRightBarBtn];
+    [headerView addSubview:segmentedControl];
+    [self.view addSubview:headerView];
+    
+    
+}
+
+
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+
+#pragma mark 设置headerView方法
+- (void)adaptHeaderViewWithHeight:(CGFloat)headerViewHeight HeaderViewBgTag:(CustomNavigationBarColorTag)headerViewBgTag NavTitle:(NSString *)navTitle SegmentArray:(NSArray *)segmentArray
+{
+    
+    if ([segmentArray count]>0) {
+        
+        [headerView setFrame:CGRectMake(0, 0, DEVICE_AVALIABLE_WIDTH, headerViewHeight+44.f)];
+        
+    } else {
+        
+        [headerView setFrame:CGRectMake(0, 0, DEVICE_AVALIABLE_WIDTH, headerViewHeight)];
+        
+    }
+    
+    
+    switch (headerViewBgTag) {
+            
+        case CustomNavigationBarColorRed:
+            navigationBarBackgroundColor = RGBCOLOR(167, 10, 10);
+            navigationBarTextColor = [UIColor whiteColor];
+            navigationBarSeparatorColor = RGBCOLOR(133, 11, 11);
+            break;
+            
+        case CustomNavigationBarColorWhite:
+            navigationBarBackgroundColor = RGBCOLOR(247, 247, 247);
+            navigationBarTextColor = RGBCOLOR(51, 51, 51);
+            navigationBarSeparatorColor = RGBCOLOR(170, 170, 170);
+            break;
+            
+        case CustomNavigationBarColorLightWhite:
+            navigationBarBackgroundColor = RGBCOLOR(250, 250, 250);
+            navigationBarTextColor = RGBCOLOR(33, 33, 33);
+            navigationBarSeparatorColor = RGBCOLOR(128, 128, 128);
+            break;
+            
+        case CustomNavigationBarColorBlack:
+            navigationBarBackgroundColor = RGBCOLOR(30, 30, 30);
+            navigationBarTextColor = [UIColor whiteColor];
+            break;
+            
+    }
+
+    [headerView setBackgroundColor:navigationBarBackgroundColor];
+    navTitleString = navTitle;
+    navTitleLabel.textColor = navigationBarTextColor;
+    currentSegmentArray = segmentArray;
+    
+}
+
+
+- (void)adaptHeaderViewWithLeftAliveSetting:(BOOL)leftAlive withLeftImageAndTitleAlive:(BOOL)leftImageAndTitleAlive RightAlive:(BOOL)rightAlive
+{
+    
+    isLeftAlive = leftAlive;
+    isLeftImageAndTitleAlive = leftImageAndTitleAlive;
+    isRightAlive = rightAlive;
+  
+}
+
+
+- (void)adaptHeaderViewWithLeftImage:(UIImage *)leftImage LeftTitle:(NSString *)leftTitle RightImage:(NSArray *)rightImageArray RightTitle:(NSArray *)rightTitleArray
+{
+    
+    //居中的文字
+    [navTitleLabel setFrame:CGRectMake(0, 20.f, DEVICE_AVALIABLE_WIDTH, 44.f)];
+    navTitleLabel.textAlignment = NSTextAlignmentCenter;
+    if (![Utility isBlankString:navTitleString]) {
+        navTitleLabel.text = navTitleString;
+        navTitleLabel.hidden = NO;
+    } else {
+        navTitleLabel.hidden = YES;
+    }
+    
+    if (isLeftAlive && isRightAlive) {
+        
+        //左右按钮均存在
+        
+        [navLeftBarBtn setFrame:CGRectMake(0, 20.f, BUTTON_WIDTH, 44.f)];
+        
+        if (isLeftImageAndTitleAlive) {
+            
+            //文字加图片
+            [navLeftBarBtn setImage:leftImage withTitle:leftTitle forState:UIControlStateNormal];
+            
+        } else {
+            
+            //判断显示图片还是文字
+            if (![Utility isBlankString:leftTitle]) {
+                
+                //显示文字
+                [navLeftBarBtn setTitle:leftTitle forState:UIControlStateNormal];
+                
+            } else {
+                
+                //显示图片
+                [navLeftBarBtn setImage:leftImage forState:UIControlStateNormal];
+                
+            }
+            
+        }
+        
+        
+        [navSecRightBarBtn setFrame:CGRectMake(DEVICE_AVALIABLE_WIDTH-2*BUTTON_WIDTH, 20.f, BUTTON_WIDTH, 44.f)];
+        [navRightBarBtn setFrame:CGRectMake(DEVICE_AVALIABLE_WIDTH-BUTTON_WIDTH, 20.f, BUTTON_WIDTH, 44.f)];
+        
+        if ([rightTitleArray count] == 2 || [rightImageArray count] == 2) {
+            //右边存在两个Btn
+            navSecRightBarBtn.hidden = NO;
+            navRightBarBtn.hidden = NO;
+            
+            //右侧button显示文字或者图片
+            if (![Utility isBlankString:rightTitleArray[0]]) {
+                
+                [navRightBarBtn setTitle:rightTitleArray[0] forState:UIControlStateNormal];
+                
+            } else {
+                
+                //没有文字则显示图片
+                [navRightBarBtn setImage:rightImageArray[0] forState:UIControlStateNormal];
+                
+            }
+            
+            //第二个Button
+            if (![Utility isBlankString:rightTitleArray[1]]) {
+                
+                [navSecRightBarBtn setTitle:rightTitleArray[1] forState:UIControlStateNormal];
+                
+            } else {
+                
+                navSecRightBarBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -40);
+                [navSecRightBarBtn setImage:rightImageArray[1] forState:UIControlStateNormal];
+                
+            }
+            
+        }else{
+            
+            navSecRightBarBtn.hidden = YES;
+            navRightBarBtn.hidden = NO;
+            
+            //右侧button显示文字或者图片
+            if (![Utility isBlankString:rightTitleArray[0]]) {
+                
+                [navRightBarBtn setTitle:rightTitleArray[0] forState:UIControlStateNormal];
+                
+            } else {
+                
+                //没有文字则显示图片
+                [navRightBarBtn setImage:rightImageArray[0] forState:UIControlStateNormal];
+                
+            }
+            
+        }
+        
+    } else if (isLeftAlive) {
+        
+        //只存在左边按钮
+        [navLeftBarBtn setFrame:CGRectMake(0, 20.f, BUTTON_WIDTH, 44.f)];
+        
+        if (isLeftImageAndTitleAlive) {
+            
+            //文字加图片
+            [navLeftBarBtn setImage:leftImage withTitle:leftTitle forState:UIControlStateNormal];
+            
+        } else {
+            
+            //判断显示图片还是文字
+            if (![Utility isBlankString:leftTitle]) {
+                
+                //显示文字
+                [navLeftBarBtn setTitle:leftTitle forState:UIControlStateNormal];
+                
+            } else {
+                
+                //显示图片
+                [navLeftBarBtn setImage:leftImage forState:UIControlStateNormal];
+                
+            }
+        }
+        
+        navRightBarBtn.hidden = YES;
+        navSecRightBarBtn.hidden = YES;
+        
+    } else if (isRightAlive) {
+        
+        //只存在右边按钮
+        navLeftBarBtn.hidden = YES;
+        [navSecRightBarBtn setFrame:CGRectMake(DEVICE_AVALIABLE_WIDTH-2*BUTTON_WIDTH, 20.f, BUTTON_WIDTH, 44.f)];
+        [navRightBarBtn setFrame:CGRectMake(DEVICE_AVALIABLE_WIDTH-BUTTON_WIDTH, 20.f, BUTTON_WIDTH, 44.f)];
+        
+        if ([rightTitleArray count]) {
+            
+            //右边存在两个Btn
+            navSecRightBarBtn.hidden = NO;
+            navRightBarBtn.hidden = NO;
+            
+            //右侧button显示文字或者图片
+            if (![Utility isBlankString:rightTitleArray[0]]) {
+                
+                [navRightBarBtn setTitle:rightTitleArray[0] forState:UIControlStateNormal];
+                
+            } else {
+                
+                //没有文字则显示图片
+                [navRightBarBtn setImage:rightImageArray[0] forState:UIControlStateNormal];
+                
+            }
+            
+            //第二个Button
+            if (![Utility isBlankString:rightTitleArray[1]]) {
+                
+                [navSecRightBarBtn setTitle:rightTitleArray[1] forState:UIControlStateNormal];
+                
+            } else {
+                
+                [navSecRightBarBtn setImage:rightImageArray[1] forState:UIControlStateNormal];
+                
+            }
+            
+        }else{
+            
+            navSecRightBarBtn.hidden = YES;
+            navRightBarBtn.hidden = NO;
+            
+            //右侧button显示文字或者图片
+            if (![Utility isBlankString:rightTitleArray[0]]) {
+                
+                [navRightBarBtn setTitle:rightTitleArray[0] forState:UIControlStateNormal];
+                
+            } else {
+                
+                //没有文字则显示图片
+                [navRightBarBtn setImage:rightImageArray[0] forState:UIControlStateNormal];
+                
+            }
+            
+        }
+
+    }
+    
+    
+    // sengment
+    if ([currentSegmentArray count] > 0) {
+        
+        [headerView setFrame:CGRectMake(0, 0, DEVICE_AVALIABLE_WIDTH, 64.f+44.f)];
+        [segmentedControl setHidden:NO];
+        
+        for (int i=0; i<[currentSegmentArray count]; i++) {
+            
+            NSString *title = [currentSegmentArray objectAtIndex:i];
+            [segmentedControl insertSegmentWithTitle:title atIndex:i animated:YES];
+            [segmentedControl addTarget:self action:@selector(onClickSegment:) forControlEvents:UIControlEventTouchUpInside];
+            [segmentedControl setWidth:SEGMENT_WIDTH forSegmentAtIndex:i];
+            
+        }
+        
+        [segmentedControl setFrame:CGRectMake((DEVICE_AVALIABLE_WIDTH-([currentSegmentArray count]*SEGMENT_WIDTH))/2, 64+(44-SEGMENT_HEIGHT)/2, ([currentSegmentArray count]*SEGMENT_WIDTH), SEGMENT_HEIGHT)];
+        
+    } else {
+        
+        [segmentedControl setHidden:YES];
+        
+    }
+
+}
+
+
+
+#pragma mark 按钮触发事件
+//点击左边Btn
+- (void)onClickLeftBtn{
+    
+}
+
+//点击最右边的Btn
+- (void)onClickRightBtn{
+    
+}
+
+//点击右边第二个Btn
+-(void)onClickSecRightBtn{
+    
+}
+
+- (void)onClickSegment:(UISegmentedControl *)segmentControl{
+    
+}
+
+@end
