@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import "BaseNavController.h"
 
 @interface AppDelegate ()
 
@@ -21,7 +22,7 @@
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     MainViewController *mainViewController = [[MainViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainViewController];
+    BaseNavController *navController = [[BaseNavController alloc] initWithRootViewController:mainViewController];
     _window.rootViewController = navController;
     [_window makeKeyAndVisible];
     

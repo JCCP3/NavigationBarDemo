@@ -26,6 +26,7 @@
     
     [self adaptHeaderViewWithLeftImage:[UIImage imageNamed:@"nav_left_side"] LeftTitle:nil RightImage:@[[UIImage imageNamed:@"nav_right_side"]] RightTitle:nil];
     
+    
     //适配头部导航条
 //    [self adaptLeftRightBtnAlive:64.f withHeaderViewBg:@"#FF0000" withIsShowLeftImageAndTitle:NO withLeftImage:[UIImage imageNamed:@"nav_left_side"] withLeftTitle:nil withNavTitle:@"追书神器" withIsTwoRightBtn:NO withRightImage:[UIImage imageNamed:@"nav_right_side"] withRightTitle:nil withSecRightImage:nil withSecRightTitle:nil withSegmentArray:nil];
      
@@ -37,6 +38,8 @@
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden = YES;
+    
+
 }
 
 - (void)didReceiveMemoryWarning {

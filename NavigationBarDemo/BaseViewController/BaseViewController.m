@@ -9,6 +9,7 @@
 #import "BaseViewController.h"
 #import "UIButton+UIButtonImageWithLabel.h"
 #import "Utility.h"
+#import "UINavigationController+YRBackGesture.h"
 #define BUTTON_WIDTH 60.f
 #define SEGMENT_WIDTH 50.f
 #define SEGMENT_HEIGHT 30.f
@@ -16,43 +17,28 @@
 @interface BaseViewController (){
     
     UIView *headerView;
-    
     UIButton *navLeftBarBtn;
-    
     UIImageView *navLeftBarImageView;
-    
     UILabel *navTitleLabel;
-    
     UIButton *navRightBarBtn;
-    
     UIImageView *navRightBarImageView;
-    
     UIButton *navSecRightBarBtn;
-    
     UIImageView *navSecRightBarImageView;
-    
     UISegmentedControl *segmentedControl;
     
     NSString *navTitleString;
-    
     NSArray *currentSegmentArray;
     
     BOOL isLeftAlive;
-    
     BOOL isLeftImageAndTitleAlive;
-    
     BOOL isRightAlive;
-    
     BOOL isRightTwoBtnAlive;
     
     UIColor *navigationBarBackgroundColor;
-    
     UIColor *navigationBarTextColor;
-    
     UIColor *navigationBarSeparatorColor;
     
     CGFloat currentWidth;
-    
     CGFloat currentHeight;
 }
 
@@ -85,8 +71,13 @@
     [headerView addSubview:navSecRightBarBtn];
     [headerView addSubview:segmentedControl];
     [self.view addSubview:headerView];
-    
-    
+
+}
+
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
 }
 
 
@@ -373,6 +364,7 @@
     }
 
 }
+
 
 
 
