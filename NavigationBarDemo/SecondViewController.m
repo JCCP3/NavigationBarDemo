@@ -23,6 +23,7 @@
     [self adaptHeaderViewWithHeight:64.f bgTag:CustomNavigationBarColorRed navTitle:@"追书神器" segmentArray:nil];
     [self adaptHeaderViewWithLeftAliveSetting:YES leftTitleAndImageAlive:YES rightAlive:YES];
     [self adaptHeaderViewWithLeftImage:[UIImage imageNamed:@"nav_back"] leftTitle:@"返回" rightImage:@[[UIImage imageNamed:@"nav_left_side"],[UIImage imageNamed:@"nav_right_side"]] rightTitle:nil];
+ 
 }
 
 - (void)viewWillAppear:(BOOL)animated

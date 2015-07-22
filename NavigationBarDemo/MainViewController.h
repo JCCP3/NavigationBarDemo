@@ -10,7 +10,6 @@
 
 @interface MainViewController : BaseViewController{
     
-    
 }
 
 //展示下一个样式

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #define BackGestureOffsetXToBack 80//>80 show pre vc
 
-@interface BaseNavController : UINavigationController<UINavigationControllerDelegate>
+@interface BaseNavController : UINavigationController<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic, assign)BOOL enableBackGesture;
 

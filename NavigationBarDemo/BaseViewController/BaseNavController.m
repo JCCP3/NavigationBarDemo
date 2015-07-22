@@ -7,6 +7,7 @@
 //
 
 #import "BaseNavController.h"
+#import "BaseViewController.h"
 #import <objc/runtime.h>
 
 static const char *assoKeyPanGesture="__yrakpanges";
@@ -79,6 +80,21 @@ static const char *assoKeyEnableGesture="__yrakenabg";
         navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     
+    UIViewController *currentVC = [self topViewController];
+    ((BaseViewController *)currentVC).shadowView.alpha = DEVICE_AVALIABLE_WIDTH/1000;
+    ((BaseViewController *)currentVC).shadowView.hidden = YES;
+    
+    
+    int count = (int)[self.viewControllers count];
+    if(count > 1){
+        
+        UIViewController *preVC = [self.viewControllers objectAtIndex:count-2];
+        ((BaseViewController *)preVC).shadowView.alpha = DEVICE_AVALIABLE_WIDTH/1000;
+        
+        ((BaseViewController *)currentVC).shadowView.hidden = YES;
+        
+    }
+    
 }
 
 
@@ -146,11 +162,7 @@ static const char *assoKeyEnableGesture="__yrakenabg";
         //向右滑
         
     }else if(xoffset<0){//向左滑
-        if (currentView.frame.origin.x>0) {
-            xoffset = xoffset<-self.view.frame.size.width?-self.view.frame.size.width:xoffset;
-        }else{
-            xoffset = 0;
-        }
+        xoffset = 0;
     }
     if (!CGPointEqualToPoint(CGPointMake(xoffset, yoffset), currentView.frame.origin)) {
         [self layoutCurrentViewWithOffset:UIOffsetMake(xoffset, yoffset)];
@@ -205,6 +217,8 @@ static const char *assoKeyEnableGesture="__yrakenabg";
         [UIView animateWithDuration:animatedTime animations:^{
             [self layoutCurrentViewWithOffset:UIOffsetMake(0, 0)];
         } completion:^(BOOL finished) {
+            ((BaseViewController *)preVC).shadowView.hidden = YES;
+            ((BaseViewController *)preVC).shadowView.alpha = DEVICE_AVALIABLE_WIDTH/1000;
             [preVC.view removeFromSuperview];
         }];
     }
@@ -217,6 +231,9 @@ static const char *assoKeyEnableGesture="__yrakenabg";
         UIViewController *currentVC = [self topViewController];
         UIViewController *preVC = [self.viewControllers objectAtIndex:count-2];
         [currentVC.view setFrame:CGRectMake(offset.horizontal, self.view.bounds.origin.y, self.view.frame.size.width, self.view.frame.size.height)];
+        ((BaseViewController *)preVC).shadowView.hidden = NO;
+        ((BaseViewController *)preVC).shadowView.alpha = (DEVICE_AVALIABLE_WIDTH-offset.horizontal)/1000;
+        
         [preVC.view setFrame:CGRectMake(offset.horizontal/2-self.view.frame.size.width/2, self.view.bounds.origin.y, self.view.frame.size.width, self.view.frame.size.height)];
     }
 }

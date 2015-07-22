@@ -44,10 +44,6 @@
     UIColor *navigationBarTextColor;
     UIColor *navigationBarSeparatorColor;
     
-    
-    
-    
-
 }
 
 @end
@@ -80,6 +76,15 @@
     [headerView addSubview:segmentedControl];
     [self.view addSubview:headerView];
     
+    self.shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_AVALIABLE_WIDTH, DEVICE_AVALIABLE_HEIGHT)];
+    self.shadowView.tag = 1000;
+    self.shadowView.hidden = YES;
+    self.shadowView.alpha = DEVICE_AVALIABLE_WIDTH/1000;
+    self.shadowView.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:self.shadowView];
+    [self.view bringSubviewToFront:self.shadowView];
+
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -93,6 +98,14 @@
     [self adaptHeaderViewWithHeight:headerViewHeight bgTag:tag navTitle:navTitleString segmentArray:currentSegmentArray];
     [self adaptHeaderViewWithLeftAliveSetting:isLeftAlive leftTitleAndImageAlive:isLeftImageAndTitleAlive rightAlive:isRightAlive];
     [self adaptHeaderViewWithLeftImage:currentLeftImage leftTitle:currentLeftTitle rightImage:aryRightImage rightTitle:aryRightTitle];
+    [self setShadowView];
+    
+}
+
+//添加阴影遮罩层
+- (void)setShadowView{
+    
+    [self.shadowView setFrame:CGRectMake(0, 0, DEVICE_AVALIABLE_WIDTH, DEVICE_AVALIABLE_HEIGHT)];
 }
 
 - (void)didReceiveMemoryWarning

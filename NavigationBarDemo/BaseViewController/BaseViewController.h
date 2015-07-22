@@ -18,6 +18,11 @@ typedef enum {
 
 @interface BaseViewController : UIViewController
 
+@property (nonatomic ,strong)UIView *shadowView;
+
+//添加阴影遮罩层
+- (void)addShadowView;
+
 //设置基本信息 （高度 背景颜色 segment数组）
 - (void)adaptHeaderViewWithHeight:(CGFloat)height bgTag:(CustomNavigationBarColorTag)bgTag navTitle:(NSString *)title segmentArray:(NSArray *)array;
 
