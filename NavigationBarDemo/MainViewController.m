@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "SecondViewController.h"
 #import "ThirdViewController.h"
+#import "BaseNavController.h"
 @interface MainViewController ()
 
 @end
@@ -19,23 +20,14 @@
     [super viewDidLoad];
     
     //左右均为图片
-    
-    [self adaptHeaderViewWithHeight:64.f HeaderViewBgTag:CustomNavigationBarColorRed NavTitle:@"追书神器" SegmentArray:nil];
-    
-    [self adaptHeaderViewWithLeftAliveSetting:YES withLeftImageAndTitleAlive:NO RightAlive:YES];
-    
-    [self adaptHeaderViewWithLeftImage:[UIImage imageNamed:@"nav_left_side"] LeftTitle:nil RightImage:@[[UIImage imageNamed:@"nav_right_side"]] RightTitle:nil];
-    
-    //适配头部导航条
-//    [self adaptLeftRightBtnAlive:64.f withHeaderViewBg:@"#FF0000" withIsShowLeftImageAndTitle:NO withLeftImage:[UIImage imageNamed:@"nav_left_side"] withLeftTitle:nil withNavTitle:@"追书神器" withIsTwoRightBtn:NO withRightImage:[UIImage imageNamed:@"nav_right_side"] withRightTitle:nil withSecRightImage:nil withSecRightTitle:nil withSegmentArray:nil];
-     
+    [self adaptHeaderViewWithHeight:64.f bgTag:CustomNavigationBarColorRed navTitle:@"追书神器" segmentArray:nil];
+    [self adaptHeaderViewWithLeftAliveSetting:YES leftTitleAndImageAlive:NO rightAlive:YES];
+    [self adaptHeaderViewWithLeftImage:[UIImage imageNamed:@"nav_left_side"] leftTitle:nil rightImage:@[[UIImage imageNamed:@"nav_right_side"]] rightTitle:nil];
     
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
     [super viewWillAppear:animated];
-    
     self.navigationController.navigationBarHidden = YES;
 }
 
@@ -43,11 +35,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
-
-
 
 /*
 #pragma mark - Navigation
@@ -74,4 +61,16 @@
 
 - (IBAction)onClickShowForthStyle:(id)sender {
 }
+
+
+
+- (void)onClickLeftBtn{
+    
+    SecondViewController *viewController = [[SecondViewController alloc] init];
+    BaseNavController *navController = [[BaseNavController alloc] initWithRootViewController:viewController];
+    navController.enableBackGesture = YES;
+    [self presentViewController:navController animated:YES completion:nil];
+    
+}
+
 @end

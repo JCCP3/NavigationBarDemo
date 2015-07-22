@@ -7,6 +7,7 @@
 //
 
 #import "SecondViewController.h"
+#import "ThirdViewController.h"
 
 @interface SecondViewController ()
 
@@ -14,33 +15,29 @@
 
 @implementation SecondViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     //适配导航条 左边为图片＋文字  右边为图片
-//    [self adaptLeftRightBtnAlive:64.f withHeaderViewBg:@"#dcdcdc" withIsShowLeftImageAndTitle:YES withLeftImage:[UIImage imageNamed:@"nav_back"] withLeftTitle:@"返回" withNavTitle:@"综合讨论区" withIsTwoRightBtn:NO withRightImage:[UIImage imageNamed:@"nav_right_side"] withRightTitle:nil withSecRightImage:nil withSecRightTitle:nil withSegmentArray:nil];
-    
-    [self adaptHeaderViewWithHeight:64.f HeaderViewBgTag:CustomNavigationBarColorRed NavTitle:@"你猜" SegmentArray:nil];
-    
-    [self adaptHeaderViewWithLeftAliveSetting:YES withLeftImageAndTitleAlive:YES RightAlive:YES];
-    
-    [self adaptHeaderViewWithLeftImage:[UIImage imageNamed:@"nav_back"] LeftTitle:@"返回" RightImage:@[[UIImage imageNamed:@"nav_left_side"],[UIImage imageNamed:@"nav_right_side"]] RightTitle:nil];
-    
+    [self adaptHeaderViewWithHeight:64.f bgTag:CustomNavigationBarColorRed navTitle:@"追书神器" segmentArray:nil];
+    [self adaptHeaderViewWithLeftAliveSetting:YES leftTitleAndImageAlive:YES rightAlive:YES];
+    [self adaptHeaderViewWithLeftImage:[UIImage imageNamed:@"nav_back"] leftTitle:@"返回" rightImage:@[[UIImage imageNamed:@"nav_left_side"],[UIImage imageNamed:@"nav_right_side"]] rightTitle:nil];
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -56,8 +53,13 @@
 */
 
 #pragma mark 重写点击方法
--(void)onClickLeftBtn{
+- (void)onClickLeftBtn{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)onClickRightBtn{
+    ThirdViewController *viewController = [[ThirdViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

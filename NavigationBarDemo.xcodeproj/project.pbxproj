@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE4E74441B5E3CA1002EC472 /* BaseNavController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4E74431B5E3CA1002EC472 /* BaseNavController.m */; };
 		FED6D3B91B5C8F290023484D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FED6D3B81B5C8F290023484D /* main.m */; };
 		FED6D3BC1B5C8F290023484D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FED6D3BB1B5C8F290023484D /* AppDelegate.m */; };
 		FED6D3C71B5C8F290023484D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED6D3C51B5C8F290023484D /* LaunchScreen.xib */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE4E74421B5E3CA1002EC472 /* BaseNavController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavController.h; sourceTree = "<group>"; };
+		FE4E74431B5E3CA1002EC472 /* BaseNavController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavController.m; sourceTree = "<group>"; };
 		FED6D3B31B5C8F290023484D /* NavigationBarDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavigationBarDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FED6D3B71B5C8F290023484D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FED6D3B81B5C8F290023484D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -155,6 +158,8 @@
 			children = (
 				FED6D3DF1B5C8FAE0023484D /* BaseViewController.h */,
 				FED6D3E01B5C8FAE0023484D /* BaseViewController.m */,
+				FE4E74421B5E3CA1002EC472 /* BaseNavController.h */,
+				FE4E74431B5E3CA1002EC472 /* BaseNavController.m */,
 			);
 			path = BaseViewController;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 				FED6D40E1B5CD13E0023484D /* ThirdViewController.m in Sources */,
 				FED6D3FE1B5CB3BA0023484D /* UIButton+UIButtonImageWithLabel.m in Sources */,
 				FED6D4071B5CC2230023484D /* SecondViewController.m in Sources */,
+				FE4E74441B5E3CA1002EC472 /* BaseNavController.m in Sources */,
 				FED6D3BC1B5C8F290023484D /* AppDelegate.m in Sources */,
 				FED6D3E11B5C8FAE0023484D /* BaseViewController.m in Sources */,
 				FED6D3B91B5C8F290023484D /* main.m in Sources */,

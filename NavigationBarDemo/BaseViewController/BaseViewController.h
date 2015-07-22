@@ -18,15 +18,14 @@ typedef enum {
 
 @interface BaseViewController : UIViewController
 
-
 //设置基本信息 （高度 背景颜色 segment数组）
-- (void)adaptHeaderViewWithHeight:(CGFloat)headerViewHeight HeaderViewBgTag:(CustomNavigationBarColorTag)headerViewBgTag NavTitle:(NSString *)navTitle SegmentArray:(NSArray *)segmentArray;
+- (void)adaptHeaderViewWithHeight:(CGFloat)height bgTag:(CustomNavigationBarColorTag)bgTag navTitle:(NSString *)title segmentArray:(NSArray *)array;
 
 //设置tag (判定左右按钮是否存在)
-- (void)adaptHeaderViewWithLeftAliveSetting:(BOOL)leftAlive withLeftImageAndTitleAlive:(BOOL)leftImageAndTitleAlive RightAlive:(BOOL)rightAlive;
+- (void)adaptHeaderViewWithLeftAliveSetting:(BOOL)leftAlive leftTitleAndImageAlive:(BOOL)leftImageAndTitleAlive rightAlive:(BOOL)rightAlive;
 
 //设置左右Image和Title
-- (void)adaptHeaderViewWithLeftImage:(UIImage *)leftImage LeftTitle:(NSString *)leftTitle RightImage:(NSArray *)rightImageArray RightTitle:(NSArray *)rightTitleArray;
+- (void)adaptHeaderViewWithLeftImage:(UIImage *)leftImage leftTitle:(NSString *)leftTitle rightImage:(NSArray *)imageArray rightTitle:(NSArray *)titleArray;
 
 //点击左边按钮
 - (void)onClickLeftBtn;
@@ -39,6 +38,5 @@ typedef enum {
 
 //点击segment
 - (void)onClickSegment:(UISegmentedControl *)segmentControl;
-
 
 @end

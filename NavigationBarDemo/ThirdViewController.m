@@ -18,13 +18,9 @@
     [super viewDidLoad];
     
     //样式为左边有一个 右边有两个
-//    [self adaptLeftRightBtnAlive:64.f withHeaderViewBg:@"#ff0000" withIsShowLeftImageAndTitle:YES withLeftImage:[UIImage imageNamed:@"nav_back"] withLeftTitle:@"返回" withNavTitle:@"你猜" withIsTwoRightBtn:YES withRightImage:[UIImage imageNamed:@"nav_left_side"] withRightTitle:nil withSecRightImage:[UIImage imageNamed:@"nav_right_side"] withSecRightTitle:nil withSegmentArray:@[@"第一项",@"第二项",@"第三项"]];
-    
-    [self adaptHeaderViewWithHeight:64.f HeaderViewBgTag:CustomNavigationBarColorRed NavTitle:@"第三种样式" SegmentArray:@[@"第一项",@"第二项",@"第三项"]];
-    
-    [self adaptHeaderViewWithLeftAliveSetting:YES withLeftImageAndTitleAlive:YES RightAlive:YES];
-    
-    [self adaptHeaderViewWithLeftImage:[UIImage imageNamed:@"nav_back"] LeftTitle:@"返回" RightImage:@[[UIImage imageNamed:@"nav_left_side"],[UIImage imageNamed:@"nav_right_side"]] RightTitle:nil];
+    [self adaptHeaderViewWithHeight:64.f bgTag:CustomNavigationBarColorRed navTitle:@"追书神器" segmentArray:@[@"第一项",@"第二项",@"第三项"]];
+    [self adaptHeaderViewWithLeftAliveSetting:YES leftTitleAndImageAlive:YES rightAlive:YES];
+    [self adaptHeaderViewWithLeftImage:[UIImage imageNamed:@"nav_back"] leftTitle:@"返回" rightImage:@[[UIImage imageNamed:@"nav_left_side"],[UIImage imageNamed:@"nav_right_side"]] rightTitle:nil];
     
 }
 
